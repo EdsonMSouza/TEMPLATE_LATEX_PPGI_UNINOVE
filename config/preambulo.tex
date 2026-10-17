@@ -1,0 +1,238 @@
+% ==============================================================================
+%  PREÂMBULO COMPLEMENTAR (config/preambulo.tex)
+% ==============================================================================
+%
+%  O que este arquivo faz
+%    Carrega pacotes e define estilos e comandos usados no texto: tabelas,
+%    caixas de destaque, diagramas, listagens de código e cores dos links.
+%
+%  O que este arquivo NÃO faz
+%    A formatação ABNT (margens, fonte, espaçamento, títulos, listas, sumário,
+%    referências) está na classe uninove-ppgi.cls. Não a altere aqui.
+%
+%  Ordem de carregamento (definida em main.tex)
+%    1. classe uninove-ppgi.cls
+%    2. pacote revisao.sty      (define \ifmodofinal, usado na Seção 6 abaixo)
+%    3. este arquivo
+%    4. config/dados.tex
+%
+%  Antes de acrescentar um pacote, verifique se ele já não é carregado pela
+%  classe (pacotes repetidos com opções diferentes geram erro "option clash").
+%
+%  Sumário deste arquivo
+%    1. Tabelas e posicionamento de flutuantes
+%    2. Atalhos e comandos auxiliares
+%    3. Caixas de destaque e de orientação ao aluno
+%    4. Diagramas em TikZ
+%    5. Listagens de código e expressões de busca
+%    6. Cores dos links conforme o modo de compilação
+% ==============================================================================
+
+
+% ==============================================================================
+%  1. TABELAS E POSICIONAMENTO DE FLUTUANTES
+% ==============================================================================
+
+% float: habilita a opção [H], que fixa figuras, quadros e tabelas
+% exatamente no ponto do texto em que foram escritos.
+%   Uso: \begin{figure}[H] ... \end{figure}
+\usepackage{float}
+
+% longtable: tabelas que continuam na página seguinte.
+%   Uso: \begin{longtable}{...} ... \end{longtable}
+%   (não deve ser colocada dentro de \begin{table})
+\usepackage{longtable}
+
+% Observação: xcolor, colortbl, tabularx, booktabs, multirow e makecell já são
+% carregados pela classe. A opção [table] do xcolor é repassada em main.tex.
+
+
+% ==============================================================================
+%  2. ATALHOS E COMANDOS AUXILIARES
+% ==============================================================================
+
+% \mes: preenche de cinza uma célula do cronograma (Capítulo 5).
+%   Uso: 1 & Atividade & \mes & \mes & & \\ \hline
+\newcommand{\mes}{\cellcolor{black!55}}
+
+
+% ==============================================================================
+%  3. CAIXAS DE DESTAQUE E DE ORIENTAÇÃO AO ALUNO
+% ==============================================================================
+
+% tcolorbox e mdframed: pacotes para caixas com moldura e fundo colorido.
+\usepackage[most]{tcolorbox}
+\usepackage{mdframed}
+
+% ------------------------------------------------------------------------------
+% Ambiente "destaque": caixa com fundo cinza claro e filete à esquerda.
+% Quebra de página automaticamente, se necessário.
+%   Uso: \begin{destaque} texto \end{destaque}
+% ------------------------------------------------------------------------------
+\newmdenv[
+  linecolor=gray!50, linewidth=0.4pt,           % cor e espessura do filete
+  leftline=true, rightline=false,               % filete apenas à esquerda
+  topline=false, bottomline=false,
+  backgroundcolor=gray!5,                       % fundo cinza bem claro
+  innerleftmargin=10pt, innerrightmargin=6pt,   % espaçamento interno
+  innertopmargin=6pt, innerbottommargin=6pt,
+  skipabove=\baselineskip, skipbelow=\baselineskip  % espaço antes e depois
+]{destaque}
+
+% ------------------------------------------------------------------------------
+% Ambiente "orientacao": caixa com instruções ao aluno.
+% Aparece no PDF apenas no modo [revisao]; no modo [final], o conteúdo é
+% descartado automaticamente, sem necessidade de apagá-lo do código.
+%   Uso: \begin{orientacao}[Título opcional]
+%          Texto da orientação.
+%        \end{orientacao}
+% Depende do ambiente "destaque" (acima) e de \ifmodofinal (revisao.sty).
+% ------------------------------------------------------------------------------
+\ifmodofinal
+  % Modo final: tudo entre \begin{orientacao} e \end{orientacao} é ignorado
+  \newenvironment{orientacao}[1][]{\comment}{\endcomment}
+\else
+  % Modo revisão: caixa de destaque com o título "Orientação ao aluno"
+  \newenvironment{orientacao}[1][]
+  {\begin{destaque}\small\setlength{\parindent}{0pt}%
+      \textbf{Orientação ao aluno\if\relax\detokenize{#1}\relax\else: #1\fi.}%
+      \par\smallskip}
+      {\end{destaque}}
+\fi
+
+
+% ==============================================================================
+%  4. DIAGRAMAS EM TIKZ
+% ==============================================================================
+
+% Bibliotecas do TikZ (o pacote tikz já é carregado pela classe):
+%   shapes.geometric  formas geométricas (losangos, elipses etc.)
+%   arrows.meta       pontas de seta configuráveis
+%   positioning       posicionamento relativo (below=of, right=of)
+%   fit               caixas que envolvem outros nós
+%   calc              cálculos com coordenadas
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc}
+
+% Estilos padronizados para fluxogramas e desenhos da pesquisa.
+%   Uso: \node[box] (a) {Etapa 1};
+%        \node[box, below=of a] (b) {Etapa 2};
+%        \draw[arrow] (a) -- (b);
+\tikzset{
+% box: caixa principal, arredondada, sem hifenização no texto interno
+box/.style={
+    draw, rectangle, rounded corners=4pt,
+    minimum width=9cm, minimum height=1.0cm, text width=6.8cm,
+    align=center, font=\small, inner sep=6pt, fill=white,
+    execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}
+  },
+% srcbox: caixa compacta, para fontes de dados no topo de um diagrama
+srcbox/.style={
+    draw, rectangle, rounded corners=4pt,
+    minimum width=3.2cm, minimum height=1.4cm, text width=2.9cm,
+    align=center, font=\small, inner sep=8pt, fill=white,
+    execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}
+  },
+% arrow: conector com ponta Stealth de 6 pt
+arrow/.style={
+-{Stealth[length=6pt, width=5pt]},
+line width=0.8pt
+}
+}
+
+
+% ==============================================================================
+%  5. LISTAGENS DE CÓDIGO E EXPRESSÕES DE BUSCA
+% ==============================================================================
+
+% upquote: mantém as aspas retas (") nas listagens, em vez de aspas curvas.
+% Essencial para que expressões de busca copiadas do PDF funcionem nas bases.
+\usepackage{upquote}
+
+% ------------------------------------------------------------------------------
+% Estilo "codigo": trechos de programa, com numeração de linhas e cores.
+%   Uso: \begin{lstlisting}[style=codigo, language=Python]
+%          ...código...
+%        \end{lstlisting}
+%   Linguagens comuns: Python, R, SQL, Java, C, [LaTeX]TeX.
+% ------------------------------------------------------------------------------
+\lstdefinestyle{codigo}{
+  basicstyle=\footnotesize\ttfamily,           % fonte monoespaçada pequena
+  keywordstyle=\color{blue}\bfseries,          % palavras reservadas
+  commentstyle=\color{green!50!black},         % comentários
+  stringstyle=\color{red},                     % textos entre aspas
+  numbers=left, numberstyle=\tiny, numbersep=5pt,  % numeração das linhas
+  frame=single, rulecolor=\color{gray},        % moldura
+  xleftmargin=20pt, framexleftmargin=15pt,     % recuo para a numeração
+  tabsize=3,
+  breaklines=true,                             % quebra linhas longas
+  showstringspaces=false                       % não marca espaços em textos
+}
+
+% ------------------------------------------------------------------------------
+% Estilo "busca": expressões de busca em bases de dados (Apêndice A).
+% Preserva aspas retas, quebras de linha e recuos, de modo que a expressão
+% possa ser copiada do PDF e colada na base sem alterações.
+%   Uso: \begin{lstlisting}[style=busca]
+%          TITLE-ABS-KEY("termo 1" AND "termo 2")
+%        \end{lstlisting}
+% ------------------------------------------------------------------------------
+\lstdefinestyle{busca}{
+basicstyle=\footnotesize\ttfamily,
+frame=single, rulecolor=\color{black},
+breaklines=true, breakatwhitespace=true,     % quebra apenas em espaços
+columns=fullflexible, keepspaces=true,       % espaçamento natural
+showstringspaces=false, upquote=true,        % aspas retas
+% Acentos dentro das listagens (o listings não os reconhece sozinho)
+inputencoding=utf8, extendedchars=true,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+{ã}{{\~a}}1 {õ}{{\~o}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1 {ê}{{\^e}}1
+}
+
+
+% ==============================================================================
+%  6. CORES DOS LINKS CONFORME O MODO DE COMPILAÇÃO
+% ==============================================================================
+% O modo é escolhido em main.tex: \usepackage[revisao]{revisao} ou [final].
+%
+%   Modo revisão: links em azul (facilita a navegação durante a orientação)
+%                 e indicação "Citado na pág." após cada referência, que
+%                 revela obras listadas mas não citadas no texto.
+%   Modo final:   todo o texto em preto, como exige o manual da biblioteca,
+%                 e sem a indicação "Citado na pág.", que não é ABNT.
+% ------------------------------------------------------------------------------
+\ifmodofinal
+  \hypersetup{colorlinks=true, linkcolor=black, citecolor=black,
+    filecolor=black, urlcolor=black}
+  \renewcommand*{\backrefalt}[4]{}             % remove "Citado na pág."
+\else
+  \hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue,
+    filecolor=blue, urlcolor=blue}
+\fi
+
+% ==============================================================================
+%  7. METADADOS DO PDF (Arquivo > Propriedades no leitor de PDF)
+% ==============================================================================
+% Preenchidos automaticamente; não é preciso editar nada aqui.
+%   Título, autor e assunto: campos de config/dados.tex
+%   Palavras-chave: \PalavrasChave de pre-textuais/resumo.tex
+% Como o resumo é lido depois da primeira página, as palavras-chave são
+% guardadas no arquivo .aux e gravadas no PDF na compilação seguinte
+% (o latexmk e o LaTeX Workshop já compilam mais de uma vez).
+% ------------------------------------------------------------------------------
+\makeatletter
+\providecommand{\pdf@palavraschave}{}
+\AtBeginDocument{%
+  \hypersetup{
+    pdftitle    = {\titulo},
+    pdfauthor   = {\autor},
+    pdfsubject  = {\tipoexame\ -- \siglaprograma, Universidade Nove de Julho (\ano)},
+    pdfkeywords = {\pdf@palavraschave},
+    pdfcreator  = {\autor}
+  }%
+}
+\AtEndDocument{%
+  \ifdefined\palavraschave
+    \immediate\write\@auxout{%
+      \gdef\string\pdf@palavraschave{\unexpanded\expandafter{\palavraschave}}}%
+  \fi}
+\makeatother

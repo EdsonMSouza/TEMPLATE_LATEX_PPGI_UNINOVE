@@ -1,0 +1,60 @@
+% ==============================================================================
+% LISTA DE ABREVIATURAS E SIGLAS (opcional; NBR 14724:2024)
+% - Ordem ALFABÉTICA.
+% - Incluir apenas as siglas efetivamente usadas no texto. Na primeira
+%   ocorrência, a sigla vem entre parênteses, após o nome por extenso:
+%   "Comitê de Ética em Pesquisa (CEP)". Depois, usa-se só a sigla.
+% - Siglas estrangeiras: por extenso no idioma original, em itálico, e,
+%   se útil, a tradução entre parênteses.
+% - Não entra no sumário.
+% ==============================================================================
+\begin{listaabreviaturas}
+  CEP    & Comitê de Ética em Pesquisa \\
+  CNS    & Conselho Nacional de Saúde \\
+  CONEP  & Comissão Nacional de Ética em Pesquisa \\
+  IA     & Inteligência Artificial \\
+  IAGen  & Inteligência Artificial Generativa \\
+  OSF    & \textit{Open Science Framework} \\
+  POC    & Prova de conceito (\textit{proof of concept}) \\
+  PRISMA & \textit{Preferred Reporting Items for Systematic Reviews and Meta-Analyses} \\
+  SHAP   & \textit{SHapley Additive exPlanations} \\
+  XAI    & \textit{Explainable Artificial Intelligence} (Inteligência Artificial Explicável) \\
+\end{listaabreviaturas}
+
+% ==============================================================================
+% LISTA DE SÍMBOLOS (opcional; NBR 14724:2024)
+% - Ordem em que os símbolos APARECEM NO TEXTO (e não alfabética).
+% - Cada símbolo com o seu significado; um símbolo, um único significado em
+%   todo o trabalho (por isso a partição de validação usa o índice m, e não
+%   j, já reservado ao jogador/variável na Equação 2.1).
+% - Atualizar sempre que uma equação for incluída, alterada ou removida.
+% - Não entra no sumário.
+% - Cada linha: \simbolo{símbolo}{significado}. O comando não usa tabela,
+%   o que evita conflitos de pacotes com colunas de largura fixa.
+% ==============================================================================
+\providecommand{\simbolo}[2]{%
+  \noindent\parbox[t]{2.2cm}{#1}\parbox[t]{13.2cm}{#2}\par\smallskip}
+
+\begin{listasimbolos}
+  \simbolo{$j$}{Índice de um jogador (variável preditora)}
+  \simbolo{$\phi_j(v)$}{Valor de Shapley do jogador $j$}
+  \simbolo{$v$}{Função característica, que associa a cada coalizão o seu ganho}
+  \simbolo{$S$}{Coalizão de jogadores que não contém $j$}
+  \simbolo{$N$}{Conjunto de jogadores (variáveis preditoras)}
+  \simbolo{$|N|$}{Cardinalidade do conjunto $N$ (número de elementos)}
+  \simbolo{$VP$}{Número de verdadeiros positivos}
+  \simbolo{$FP$}{Número de falsos positivos}
+  \simbolo{$FN$}{Número de falsos negativos}
+  \simbolo{$\tau$}{Limiar de decisão do classificador}
+  \simbolo{$\hat{p}_i$}{Probabilidade estimada da classe positiva para a observação $i$}
+  \simbolo{$i$}{Índice de uma observação}
+  \simbolo{$F_1$}{Média harmônica entre precisão e revocação (\textit{F1-score})}
+  \simbolo{$\theta$}{Vetor de hiperparâmetros de um modelo}
+  \simbolo{$k$}{Número de partições da validação cruzada}
+  \simbolo{$\hat{\theta}$}{Hiperparâmetros selecionados por validação cruzada}
+  \simbolo{$\argmin$}{Argumento que minimiza a expressão}
+  \simbolo{$\Theta$}{Espaço de busca dos hiperparâmetros}
+  \simbolo{$\mathcal{L}$}{Função de perda}
+  \simbolo{$D_m$}{$m$-ésima partição de validação}
+  \simbolo{$m$}{Índice de uma partição de validação}
+\end{listasimbolos}

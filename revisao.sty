@@ -1,0 +1,183 @@
+%% ==========================================================================
+%% revisao.sty
+%% Macros padronizadas de revisao para textos academicos orientados
+%% Prof. Dr. Edson Melo de Souza (Uninove, PPGI/PPGP)
+%%
+%% Uso no preambulo:
+%%   \usepackage[revisao]{revisao}   % modo de revisao (notas visiveis)
+%%   \usepackage[final]{revisao}     % modo final (notas ocultas, texto limpo)
+%%
+%% Comandos principais (detalhes no arquivo LEIA-ME.md):
+%%   \notaOrientador{texto}   nota do orientador na margem
+%%   \notaOrientador*{texto}  nota do orientador no corpo do texto
+%%   \notaCoorientador, \notaAluno, \notaBanca   demais revisores (mesma sintaxe)
+%%   \inserir{texto}      trecho sugerido para inclusao
+%%   \remover{texto}      trecho sugerido para exclusao
+%%   \substituir{a}{b}    troca o trecho a pelo trecho b
+%%   \verificar{texto}    trecho que exige conferencia (dado, citacao, cifra)
+%%   \pendente{texto}     tarefa pendente no corpo do texto
+%%   \preencher{texto}    campo do modelo ainda nao preenchido (vermelho)
+%%   \listadenotas        lista de todas as notas abertas
+%%   \legendarevisores    legenda de cores dos revisores
+%%   \novorevisor{SIGLA}{COR_HEX}{Nome}   cria \notaSIGLA para novo revisor
+%%
+%% Nomes dos revisores: lidos de config/dados.tex (\Orientador,
+%% \Coorientador e \Autor). Nao e preciso editar este arquivo.
+%% ==========================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{revisao}[2026/10/16 v1.1 Macros de revisao academica]
+
+%% --------------------------------------------------------------------------
+%% Opcoes
+%% --------------------------------------------------------------------------
+\newif\ifrev@final
+\rev@finalfalse
+% Condicional publica: \ifmodofinal ... \else ... \fi
+\newif\ifmodofinal
+\modofinalfalse
+\DeclareOption{final}{\rev@finaltrue\modofinaltrue}
+\DeclareOption{revisao}{\rev@finalfalse\modofinalfalse}
+\ProcessOptions\relax
+
+%% --------------------------------------------------------------------------
+%% Pacotes
+%% --------------------------------------------------------------------------
+\RequirePackage{xcolor}
+\RequirePackage[normalem]{ulem}
+\ifrev@final
+  \RequirePackage[disable]{todonotes}
+\else
+  \RequirePackage[colorinlistoftodos,textsize=scriptsize,
+                  prependcaption]{todonotes}
+\fi
+% Margem direita de 2 cm (ABNT): notas de margem compactas
+\setlength{\marginparwidth}{1.6cm}
+\setlength{\marginparsep}{0.2cm}
+
+%% --------------------------------------------------------------------------
+%% Cores
+%% --------------------------------------------------------------------------
+\definecolor{revIns}{HTML}{1565C0}  % insercao
+\definecolor{revDel}{HTML}{C62828}  % remocao
+\definecolor{revVer}{HTML}{EF6C00}  % verificacao
+
+%% --------------------------------------------------------------------------
+%% Contagem de notas e rotulo de versao
+%% --------------------------------------------------------------------------
+\newcounter{rev@notas}
+\newcounter{rev@campos}
+\newcommand{\rev@versao}{}
+\newcommand{\versaodocumento}[1]{\renewcommand{\rev@versao}{#1}}
+\providecommand{\rev@total}{?}
+
+%% --------------------------------------------------------------------------
+%% Revisores
+%% \novorevisor{SIGLA}{COR_HEX}{Nome completo e papel}
+%% Cria \notaSIGLA[opcoes todonotes]{texto} e a variante \notaSIGLA*
+%% --------------------------------------------------------------------------
+\newcommand{\rev@legenda}{}
+\newcommand{\novorevisor}[3]{%
+  \definecolor{rev#1}{HTML}{#2}%
+  \g@addto@macro\rev@legenda{%
+    \item[\textcolor{rev#1}{\rule{0.8em}{0.8em}}] \textbf{#1}: #3}%
+  \expandafter\NewDocumentCommand\csname nota#1\endcsname{s O{} m}{%
+    \stepcounter{rev@notas}%
+    \ifrev@final\else
+      \IfBooleanTF{##1}%
+        {\todo[inline,color=rev#1!12,bordercolor=rev#1,linecolor=rev#1,##2]%
+              {\textbf{#1:} ##3}}%
+        {\todo[color=rev#1!12,bordercolor=rev#1,linecolor=rev#1,##2]%
+              {\textbf{#1:} ##3}}%
+    \fi}%
+}
+
+% \rev@campo{campo}{texto padrao}
+% Usa o valor de um campo de config/dados.tex (\orientador, \coorientador,
+% \autor). Se o campo nao tiver sido preenchido (ou estiver comentado),
+% usa o texto padrao. A leitura ocorre no momento em que a legenda e
+% impressa, depois de dados.tex ter sido carregado; por isso os nomes nao
+% precisam ser repetidos neste arquivo.
+\newcommand{\rev@campo}[2]{%
+  \ifcsname #1\endcsname\csname #1\endcsname\else #2\fi}
+
+% Revisores predefinidos
+% Os nomes vem de config/dados.tex (\Orientador, \Coorientador, \Autor).
+% Para outros revisores, use \novorevisor{SIGLA}{COR_HEX}{Nome} no preambulo.
+\novorevisor{Orientador}{1F4E79}{\rev@campo{orientador}{Orientador(a)}}
+\novorevisor{Coorientador}{6A1B9A}{\rev@campo{coorientador}{Coorientador(a)}}
+\novorevisor{Aluno}{8D6E63}{\rev@campo{autor}{Autor(a)}}
+% \novorevisor{Banca}{2E7D32}{Membro da banca examinadora}
+
+% Compatibilidade: textos antigos com \notaEMS continuam compilando.
+% Pode ser apagada quando nenhum arquivo usar mais \notaEMS.
+\newcommand{\notaEMS}{\notaOrientador}
+
+\newcommand{\legendarevisores}{%
+  \ifrev@final\else
+    \begin{description}\rev@legenda\end{description}%
+  \fi}
+
+%% --------------------------------------------------------------------------
+%% Marcacoes de edicao
+%% --------------------------------------------------------------------------
+\ifrev@final
+  \newcommand{\inserir}[1]{#1}
+  \newcommand{\remover}[1]{}
+  \newcommand{\substituir}[2]{#2}
+  \newcommand{\verificar}[1]{#1}
+  \newcommand{\pendente}[1]{\stepcounter{rev@notas}}
+  \newcommand{\listadenotas}{}
+  \newcommand{\preencher}[1]{\stepcounter{rev@campos}{\leavevmode\color{red}[#1]}}
+\else
+  \newcommand{\inserir}[1]{{\color{revIns}\uline{#1}}}
+  \newcommand{\remover}[1]{{\color{revDel}\sout{#1}}}
+  \newcommand{\substituir}[2]{\remover{#1}\,\inserir{#2}}
+  \newcommand{\verificar}[1]{{\color{revVer}\uwave{#1}}%
+    \textsuperscript{\color{revVer}\textbf{[?]}}}
+  \newcommand{\pendente}[1]{\stepcounter{rev@notas}%
+    \todo[inline,color=yellow!35,bordercolor=revVer]{\textbf{Pendente:} #1}}
+  \newcommand{\preencher}[1]{\stepcounter{rev@campos}{\leavevmode\color{red}[#1]}}
+  \newcommand{\listadenotas}{%
+    \pagenumbering{Alph}\thispagestyle{empty}%
+    \listoftodos[Notas de revis\~ao em aberto]%
+    \thispagestyle{empty}%
+    \vspace{1em}\noindent\textbf{Legenda de revisores}\legendarevisores
+    \clearpage
+    \pagenumbering{arabic}}% a lista nao altera a paginacao do trabalho
+\fi
+
+%% --------------------------------------------------------------------------
+%% Carimbo de pagina (somente no modo revisao)
+%% Mostra versao, data de compilacao e total de notas da compilacao anterior
+%% --------------------------------------------------------------------------
+\ifrev@final\else
+  \AddToHook{shipout/foreground}{%
+    \put(\dimexpr0.5\paperwidth\relax,-0.8cm){\makebox[0pt]{%
+      \scriptsize\sffamily\color{gray}%
+      VERS\~AO DE REVIS\~AO%
+      \ifx\rev@versao\@empty\else\ \textbullet\ \rev@versao\fi
+      \ \textbullet\ compilada em \today
+      \ \textbullet\ \rev@total\ nota(s) em aberto}}}
+\fi
+
+%% --------------------------------------------------------------------------
+%% Relatorio ao final da compilacao (aparece em Logs and output files)
+%% --------------------------------------------------------------------------
+\AtEndDocument{%
+  \immediate\write\@auxout{\gdef\string\rev@total{\arabic{rev@notas}}}%
+  \ifnum\value{rev@campos}>0
+    \PackageWarningNoLine{revisao}{\arabic{rev@campos} campo(s) do modelo
+      ainda sem preenchimento (\string\preencher)}%
+  \fi
+  \ifnum\value{rev@notas}>0
+    \ifrev@final
+      \PackageWarningNoLine{revisao}{Modo final: \arabic{rev@notas}
+        nota(s) ou pendencia(s) continuam no codigo-fonte. Remova-as antes
+        do deposito definitivo}%
+    \else
+      \PackageWarningNoLine{revisao}{\arabic{rev@notas} nota(s) de
+        revisao em aberto}%
+    \fi
+  \fi}
+
+\endinput

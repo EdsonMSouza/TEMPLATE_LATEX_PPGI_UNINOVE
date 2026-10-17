@@ -1,0 +1,129 @@
+% ==============================================================================
+% MODELO UNINOVE (PPGI/PPGP): PRÉ-QUALIFICAÇÃO, QUALIFICAÇÃO E DEFESA
+% Conforme o Manual de Orientação para Apresentação de Trabalhos Acadêmicos
+% do Sistema de Bibliotecas Prof. José Storópoli (março de 2025).
+%
+% Estrutura de pastas:
+%   config/        dados do trabalho e preâmbulo complementar
+%   pre-textuais/  resumo, abstract, listas e elementos opcionais
+%   capitulos/     um arquivo por capítulo
+%   pos-textuais/  declaração de IA e referências (.bib)
+%   apendices/     documentos elaborados pelo autor
+%   anexos/        documentos de terceiros
+%   figuras/       imagens (png, pdf, jpg) e figuras/tikz/ para diagramas
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 1. OPÇÕES DE CITAÇÃO (antes da classe)
+% 'abnt-citacao-minuscula': sobrenome em minúsculas, inclusive entre
+%   parênteses, como exige a NBR 10520:2023: (Silva, 2024); ver config/abnt-opcoes.bib
+% 'abnt-etal-cite=3': et al. somente a partir de 4 autores (NBR 10520:2023)
+% 'abnt-etal-text=emph': et al. em itálico
+% 'abnt-emphasize=bf': destaque em negrito no título da obra ou do periódico
+%   (manual, cap. 4, item 1.1.1)
+% ------------------------------------------------------------------------------
+\PassOptionsToPackage{abnt-citacao-minuscula,abnt-etal-cite=3,abnt-etal-text=emph,abnt-emphasize=bf}{abntex2cite}
+\PassOptionsToPackage{table}{xcolor}
+
+\documentclass{uninove-ppgi}
+
+% ------------------------------------------------------------------------------
+% 2. MODO DE COMPILAÇÃO
+% [revisao]: notas, marcações, lista de pendências e carimbo de versão
+% [final]  : texto limpo, em preto, para envio à banca ou depósito
+% ------------------------------------------------------------------------------
+\usepackage[revisao]{revisao}
+
+% ------------------------------------------------------------------------------
+% 3. PREÂMBULO COMPLEMENTAR E DADOS DO TRABALHO
+% ------------------------------------------------------------------------------
+\input{config/preambulo}
+\input{config/dados}
+
+% ------------------------------------------------------------------------------
+% 4. ADAPTAÇÃO AUTOMÁTICA À ETAPA (definida por \Tipoexame em config/dados.tex)
+% Pré-Qualificação e Qualificação: capítulo 4 "Resultados preliminares" e
+%   capítulo 5 "Planos para a continuidade do trabalho".
+% Defesa: capítulo 4 "Resultados e discussão" e capítulo 5 "Conclusão".
+% ------------------------------------------------------------------------------
+\newif\ifdefesa
+\ifthenelse{\equal{\tipoexame}{Defesa}}{\defesatrue}{\defesafalse}
+\ifdefesa
+  \newcommand{\titresultados}{Resultados e discussão}
+\else
+  \newcommand{\titresultados}{Resultados preliminares}
+\fi
+
+% Compilar apenas alguns capítulos (acelera a edição; descomentar e ajustar)
+% \includeonly{capitulos/03-metodologia}
+
+\begin{document}
+
+% ==============================================================================
+% ELEMENTOS PRÉ-TEXTUAIS
+% Folhas contadas a partir da folha de rosto, sem número impresso.
+% Ordem: NBR 14724:2024
+% ==============================================================================
+\pretextual
+
+% Lista de notas de revisão em aberto (desaparece no modo final)
+\listadenotas
+
+\capa                                   % obrigatório
+\folharosto                             % obrigatório (folha 1)
+
+% Descomentar as linha abaixo apenas na versão final, após a Defesa
+% \fichacatalografica{pre-textuais/ficha-catalografica.pdf} 
+% \folhaaprovacao
+
+% ==============================================================================
+% ELEMENTOS Opcionais.
+% Descomentar as linhas abaixo apenas na versão final, após a Defesa
+% ==============================================================================
+% \input{pre-textuais/dedicatoria}      % opcional
+% \input{pre-textuais/agradecimentos}   % opcional
+% \input{pre-textuais/epigrafe}         % opcional
+
+% Elementos obrigatórios
+\input{pre-textuais/resumo}             % obrigatório
+\input{pre-textuais/abstract}           % obrigatório
+\input{pre-textuais/listas}             % figuras, tabelas e quadros
+\input{pre-textuais/abreviaturas}       % opcional
+\tableofcontents                        % obrigatório; último elemento pré-textual
+
+% ==============================================================================
+% ELEMENTOS TEXTUAIS OBRIGATÓRIOS (numeração impressa a partir da Introdução)
+% ==============================================================================
+\textual
+
+\include{capitulos/01-introducao}
+\include{capitulos/02-fundamentacao}
+\include{capitulos/03-metodologia}
+\include{capitulos/04-resultados}
+\ifdefesa
+  \include{capitulos/05-conclusao}  % Defesa
+\else
+  \include{capitulos/05-planos}     % Pré-Qualificação e Qualificação
+\fi
+
+% ==============================================================================
+% DECLARAÇÃO DE USO DE IA E ELEMENTOS PÓS-TEXTUAIS
+% Títulos sem indicativo numérico, centralizados
+% ==============================================================================
+\postextual
+
+\include{pos-textuais/declaracao-ia}
+
+% Estilo ABNT autor-data com ponto e vírgula entre autores (NBR 10520:2023)
+\bibliographystyle{config/abntex2-alf-uninove}
+\bibliography{config/abnt-opcoes,pos-textuais/referencias}  % obrigatório
+
+% Apêndices (elaborados pelo autor)
+\include{apendices/apendice-a-strings}
+\include{apendices/apendice-b-variaveis}
+\include{apendices/apendice-c-codigo}
+
+% Anexos (documentos de terceiros)
+% \include{anexos/anexo-a-modelo}
+
+\end{document}

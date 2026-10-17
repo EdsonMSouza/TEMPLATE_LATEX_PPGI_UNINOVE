@@ -1,0 +1,113 @@
+% ==============================================================================
+% CAPÍTULO 2: FUNDAMENTAÇÃO TEÓRICA
+%
+% EQUAÇÕES NESTE CAPÍTULO: apenas as que DEFINEM um conceito, modelo ou teoria
+% da literatura ("o que é" / "como a literatura o formaliza"), sempre com a
+% citação da fonte original. Métricas, parâmetros e procedimentos de cálculo
+% escolhidos pelo pesquisador ficam na Metodologia, que remete às equações
+% daqui com \eqref, sem repeti-las. Ver o exemplo na Seção 2.1.
+% Os blocos \begin{orientacao}...\end{orientacao} aparecem no PDF apenas no
+% modo revisão e somem no modo final; ainda assim, apague-os após a leitura.
+% ==============================================================================
+\chapter{Fundamentação teórica}
+\label{ch:fundamentacao_teorica}
+\begin{resumocapitulo}
+  Aqui deve ser incluído um resumo do capítulo, destacando os principais conceitos, teorias e abordagens que fundamentam a pesquisa. O resumo deve apresentar de forma concisa os tópicos abordados, a relevância teórica e metodológica das discussões e como elas se conectam com os objetivos do trabalho. Deve ser escrito em parágrafo único, sem citações ou referências bibliográficas e de forma concisa e não deve ultrapassar 200 palavras.
+\end{resumocapitulo}
+
+A fundamentação teórica tem como finalidade articular e sintetizar as principais correntes conceituais, modelos analíticos e construtos que sustentam a investigação. O seu papel estrutural é fornecer o alicerce epistemológico necessário para a compreensão do objeto de estudo, estabelecendo um diálogo crítico com a literatura consolidada e o estado da arte. Ela define a lente teórica pela qual os fenômenos serão observados e os dados empíricos, interpretados. As fontes discutidas neste capítulo foram recuperadas segundo o protocolo descrito na Seção~\ref{sec:procedimentos_literatura}.
+
+\section{Construto teórico 1}
+\label{sec:construto_1}
+Cada seção conceitual deve apresentar um construto central da pesquisa, sua definição operacional, as principais vertentes teóricas que o discutem e os pontos de convergência ou tensão entre autores. Não se trata de acumular definições, mas de posicionar o estudo diante delas, explicitando qual entendimento será adotado e por quê.
+
+% ------------------------------------------------------------------------------
+% EXEMPLO: equação conceitual na fundamentação teórica (adaptar ou apagar)
+% Função da equação aqui: DEFINIR o conceito, como formalizado na literatura.
+% Por isso: (1) vem com a citação da fonte original; (2) usa a notação do
+% autor de origem; (3) NÃO traz parâmetros, bibliotecas ou valores escolhidos
+% neste estudo. A Metodologia (Seção 3.6) retoma esta equação por \eqref.
+% ------------------------------------------------------------------------------
+\begin{orientacao}[Equações na fundamentação teórica]
+  Neste capítulo entram apenas as expressões que definem formalmente um conceito, modelo ou teoria da literatura, isto é, as que respondem à pergunta \emph{o que é} e \emph{como a literatura o formaliza}. Cada uma deve vir acompanhada da citação da fonte original. Métricas de avaliação, parâmetros escolhidos e procedimentos de cálculo pertencem à Metodologia (Capítulo~\ref{ch:metodologia}), que deve remeter à equação apresentada aqui, sem repeti-la. O exemplo a seguir ilustra o caso: a definição dos valores de Shapley aparece apenas neste capítulo, e a Seção~\ref{sec:analise} descreve como eles foram calculados no estudo.
+\end{orientacao}
+
+Entre as abordagens de explicabilidade de modelos, destaca-se a atribuição de importância fundamentada na teoria dos jogos cooperativos. \citeonline{Shapley1953} propôs um critério de repartição do ganho de uma coalizão entre seus participantes, segundo o qual a contribuição do jogador $j$ corresponde à média ponderada de suas contribuições marginais a todas as coalizões possíveis, conforme a Equação~\eqref{eq:shapley}:
+\begin{equation}
+  \phi_j(v) = \sum_{S \subseteq N \setminus \{j\}} \frac{|S|!\,\left(|N| - |S| - 1\right)!}{|N|!}\,\Big[ v\left(S \cup \{j\}\right) - v(S) \Big],
+  \label{eq:shapley}
+\end{equation}
+em que $N$ é o conjunto de jogadores, $S$ é uma coalizão que não contém $j$ e $v$ é a função característica, que associa a cada coalizão o ganho por ela obtido. \citeonline{Lundberg2017} transpuseram essa formulação para a explicação de modelos de aprendizado de máquina, tratando as variáveis preditoras como jogadores e a predição do modelo como o ganho a ser repartido, o que deu origem ao método SHAP (\textit{SHapley Additive exPlanations}).
+
+\section{Construto teórico 2}
+\label{sec:construto_2}
+A segunda seção conceitual segue a mesma lógica. Recomenda-se que a sequência dos construtos acompanhe a ordem dos objetivos específicos, o que facilita ao leitor perceber como cada base teórica será mobilizada nas etapas analíticas.
+
+\section{Trabalhos relacionados}
+\label{sec:trabalhos_relacionados}
+A seção de trabalhos relacionados tem como finalidade examinar criticamente os estudos selecionados na revisão da literatura que abordam, total ou parcialmente, o problema investigado. Mais do que descrever cada estudo, cabe compará-los segundo dimensões analíticas comuns (objetivo, método, contexto, dados e resultados), evidenciando o que já está estabelecido e o que permanece em aberto.
+
+% Exemplo: substituir pelos estudos efetivamente selecionados no corpus da revisão.
+O Quadro~\ref{qua:estudos_rsl} sintetiza as principais dimensões de comparação entre os estudos revisados e a proposta desta pesquisa, permitindo identificar semelhanças, diferenças e lacunas que motivam as escolhas metodológicas adotadas.
+
+\begin{quadros}[H]
+  \centering
+  \caption{Síntese do corpus de estudos selecionados na revisão sistemática da literatura}
+  \label{qua:estudos_rsl}
+  \scriptsize
+  \singlespacing
+  \setlength{\tabcolsep}{2.5pt}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{|c|l|c|c|c|}
+    \hline
+    \textbf{ID}                                                                      &
+    \textbf{Referência}                                                              &
+    \textbf{Ano}                                                                     &
+    \makebox[0.24\linewidth][c]{\textbf{Foco Metodológico}}                          &
+    \makebox[0.38\linewidth][c]{\textbf{Principais Contribuições}}                        \\ \hline
+
+    E01                                                                              &
+    \citeonline{silva2024}                                                           &
+    2024                                                                             &
+    \parbox[t]{0.24\linewidth}{\raggedright
+    Modelagem preditiva supervisionada com Random Forest e XGBoost.\strut}           &
+    \parbox[t]{0.38\linewidth}{\raggedright
+    Identificação de fatores críticos de risco espacial; validação cruzada k-fold.\strut} \\ \hline
+
+    E02                                                                              &
+    \citeonline{chen2024xai}                                                         &
+    2024                                                                             &
+    \parbox[t]{0.24\linewidth}{\raggedright
+    Inteligência Artificial Explicável (XAI) com SHAP em dados espaciais.\strut}     &
+    \parbox[t]{0.38\linewidth}{\raggedright
+    Mapeamento de fidelidade local e estabilidade temporal dos preditores.\strut}         \\ \hline
+
+    E03                                                                              &
+    \citeonline{oliveira2025}                                                        &
+    2025                                                                             &
+    \parbox[t]{0.24\linewidth}{\raggedright
+    Integração multissensorial de imagens orbitais Sentinel-2 e bases locais.\strut} &
+    \parbox[t]{0.38\linewidth}{\raggedright
+    Protocolos de calibração espectral e filtragem de ruído amostral.\strut}              \\ \hline
+
+    E04                                                                              &
+    \citeonline{santos2025}                                                          &
+    2025                                                                             &
+    \parbox[t]{0.24\linewidth}{\raggedright
+    Calibração de limiares decisórios e sensibilidade paramétrica.\strut}            &
+    \parbox[t]{0.38\linewidth}{\raggedright
+    Otimização de revocação e controle de erro tipo II em classes raras.\strut}           \\ \hline
+
+    E05                                                                              &
+    \citeonline{martins2026}                                                         &
+    2026                                                                             &
+    \parbox[t]{0.24\linewidth}{\raggedright
+    Métricas formais de interpretabilidade causal em redes profundas.\strut}         &
+    \parbox[t]{0.38\linewidth}{\raggedright
+    Proposição de índices quantitativos para governança e auditoria algorítmica.\strut}   \\ \hline
+  \end{tabular}
+
+  \fonte{Elaborado pelo autor (\ano).}
+\end{quadros}
+
+O fechamento desta seção deve retomar, de forma argumentativa, a lacuna anunciada na Seção~\ref{sec:problema}. É nesse ponto que a comparação entre os estudos deixa de ser descritiva e passa a justificar, com base na própria literatura, a pertinência e a originalidade da investigação.

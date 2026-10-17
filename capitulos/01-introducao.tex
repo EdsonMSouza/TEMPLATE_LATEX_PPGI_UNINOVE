@@ -1,0 +1,102 @@
+% ==============================================================================
+% CAPÍTULO 1: INTRODUÇÃO
+% Títulos de seção: apenas a primeira letra em maiúscula (manual, item 2)
+% ==============================================================================
+\chapter{Introdução}
+\label{ch:introducao}
+
+\section{Contextualização}
+\label{sec:contextualizacao}
+A contextualização tem por finalidade situar o leitor no macrocenário temático em que a pesquisa se insere, apresentando as circunstâncias históricas, conceituais, práticas ou tecnológicas que envolvem o objeto de estudo. Sua função estrutural é traçar um panorama abrangente que evidencie a relevância da área de investigação e a dinâmica atual do campo científico ou de mercado. Ela estabelece as bases conceituais iniciais e o pano de fundo necessário para que a emergência do problema de pesquisa seja compreendida de forma lógica e fundamentada.
+
+% ------------------------------------------------------------------------------
+% Exemplos de marcação de revisão (revisao.sty). Apagar após a leitura.
+% ------------------------------------------------------------------------------
+\notaOrientador{Exemplo de nota do orientador. Apagar.}
+\pendente{Exemplo de pendência no corpo do texto. Apagar.}
+
+As formas de citação disponíveis no pacote \textit{abntex2cite} são: \verb|\cite{}| para a chamada entre parênteses, ao final da frase, como em (Autor, ano); \verb|\citeonline{}| para a chamada com o autor integrado à frase, como em Autor (ano); \verb|\citeauthor{}| para o nome do autor sem a data; e \verb|\citeyear{}| para a data isolada. A página ou a localização é informada no argumento opcional, como em \verb|\cite[p.~27]{chave}|. Os comandos \verb|\citep| e \verb|\citet| pertencem ao pacote \textit{natbib} e não estão disponíveis neste modelo.
+
+\begin{itemize}
+  \item \textbf{Citação indireta}: a condução da revisão sistemática seguiu as diretrizes metodológicas da recomendação PRISMA \cite{Page2021PRISMA}, assegurando transparência, rigor procedimental e reprodutibilidade nas etapas de identificação, triagem, elegibilidade e inclusão dos estudos analisados.
+  \item \textbf{Citação direta curta} (até três linhas, entre aspas duplas, com página ou localização; em tradução própria, acrescentar ``tradução nossa''): segundo \citeonline[p.~1, tradução nossa]{Page2021PRISMA}, a declaração PRISMA 2020 ``compreende uma lista de verificação de 27 itens''.
+  \item \textbf{Citação do autor sem data}: os critérios consolidados por \citeauthor{Page2021PRISMA} serviram de referência para a estruturação do protocolo de busca e elegibilidade.
+\end{itemize}
+
+Citações diretas com mais de três linhas usam o ambiente \verb|citacao| (recuo de 4~cm, fonte menor, espaço simples e sem aspas), com a chamada ao final:
+
+\begin{citacao}
+  Transcrição literal com mais de três linhas, reproduzida exatamente como no original, inclusive quanto à grafia e à pontuação. Supressões são indicadas por reticências entre colchetes [...] e interpolações, por colchetes. O ponto final é colocado após a chamada entre parênteses, que indica autor, ano e página ou localização (Autor, ano, p.~00).
+\end{citacao}
+
+\section{Problema de pesquisa}
+\label{sec:problema}
+O problema de pesquisa tem a função de delimitar o nó crítico, a inquietação científica ou a lacuna de conhecimento que o trabalho se propõe a enfrentar. Ele formaliza com precisão o hiato teórico ou empírico identificado na literatura e na prática, traduzindo a relevância da investigação em uma questão norteadora objetiva e viável. Seu papel estrutural é orientar todas as decisões epistemológicas, conceituais e metodológicas subsequentes da dissertação.
+
+% Uma lacuna e uma pergunta: usar os ambientes não numerados lacuna* e pergunta*.
+% Por não terem número, \ref não funciona com eles; referir-se ao texto com
+% \hyperref[perg:principal]{Pergunta de Pesquisa} (link com o nome).
+% Várias lacunas ou perguntas: usar os ambientes numerados lacuna e pergunta,
+% que aceitam \ref normalmente.
+\begin{lacuna*}
+  \phantomsection\label{lac:principal}
+  A lacuna deve ser enunciada em uma única sentença declarativa, que identifique com precisão o que a literatura ainda não explica, não mensura ou não resolve, preferencialmente indicando o contexto, a população ou o fenômeno em que essa insuficiência se manifesta.
+\end{lacuna*}
+
+\begin{pergunta*}
+  \phantomsection\label{perg:principal}
+  A pergunta deve ser enunciada em uma única sentença interrogativa, delimitando o fenômeno, as variáveis ou construtos envolvidos e o contexto de investigação, de modo que sua resposta seja verificável pelos procedimentos descritos na Metodologia?
+\end{pergunta*}
+
+\section{Objetivos}
+\label{sec:objetivos}
+
+\subsection{Objetivo geral}
+\label{subsec:objetivo_geral}
+O objetivo geral tem como finalidade definir a meta central e o compromisso resolutivo da dissertação, expressando o que a pesquisa pretende alcançar em seu nível mais amplo. Seu papel estrutural é responder diretamente à \hyperref[perg:principal]{Pergunta de Pesquisa} e delimitar o escopo principal da investigação por meio de um verbo de ação no infinitivo (analisar, propor, avaliar, desenvolver). Ele unifica todas as etapas do projeto, estabelecendo a linha condutora que vincula o problema aos resultados pretendidos.
+
+\subsection{Objetivos específicos}
+\label{subsec:objetivos_especificos}
+Os objetivos específicos têm como finalidade operacionalizar e desdobrar o objetivo geral em etapas analíticas, técnicas e lógicas sequenciais. O seu papel estrutural é detalhar os passos investigativos necessários para responder ao problema de pesquisa, delimitando as metas intermediárias (como caracterizar, identificar, mapear, comparar ou validar) que guiam o percurso metodológico. A realização articulada desse conjunto de metas assegura o cumprimento integral do objetivo central e fundamenta a estrutura dos capítulos analíticos da dissertação, alinhados à lacuna científica identificada na Seção~\ref{sec:problema}.
+
+\begin{itemize}
+  \item Objetivo específico 1: \preencher{descrever}.
+  \item Objetivo específico 2: \preencher{descrever}.
+  \item Objetivo específico 3: \preencher{descrever}.
+  \item Objetivo específico 4: \preencher{descrever}.
+\end{itemize}
+
+\section{Justificativa}
+\label{sec:justificativa}
+A justificativa tem como finalidade legitimar a realização da pesquisa perante a comunidade acadêmica e a sociedade, demonstrando por que o trabalho deve ser desenvolvido. Seu papel estrutural é defender a relevância do projeto a partir de três pilares: a contribuição teórica para o avanço da ciência, a utilidade prática ou aplicada para a resolução de problemas reais, e o impacto socioeconômico ou institucional gerado por seus achados.
+
+\section{Contribuições esperadas}
+\label{sec:contribuicoes}
+As contribuições esperadas têm como finalidade antecipar os avanços epistemológicos, teóricos ou empíricos que a pesquisa pretende agregar ao estado da arte. Na etapa de qualificação, elas expressam compromissos analíticos ainda não demonstrados, razão pela qual devem ser formuladas como proposições verificáveis ao término do estudo. Seu papel estrutural é explicitar o valor que se espera adicionar à literatura, indicando de que modo as análises, proposições conceituais ou descobertas poderão refinar modelos estabelecidos ou superar a lacuna anteriormente identificada.
+
+Espera-se que este trabalho contribua com:
+
+\begin{itemize}
+  \item \preencher{Descrever a contribuição esperada 1};
+  \item \preencher{Descrever a contribuição esperada 2};
+  \item \preencher{Descrever a contribuição esperada 3};
+  \item \preencher{Descrever a contribuição esperada 4}.
+\end{itemize}
+
+\section{Organização do trabalho}
+\label{sec:organizacao}
+Além desta Introdução, o trabalho está estruturado em quatro capítulos:
+
+\begin{itemize}
+  \item Capítulo~\ref{ch:fundamentacao_teorica} (\textbf{Fundamentação teórica}). Apresenta os construtos e teorias que sustentam o estudo e examina os trabalhos relacionados identificados na revisão da literatura, evidenciando a lacuna que motiva a pesquisa.
+  \item Capítulo~\ref{ch:metodologia} (\textbf{Metodologia}). Descreve a classificação e o desenho da pesquisa, o protocolo de levantamento da literatura, os procedimentos de coleta e análise de dados, os aspectos éticos e as delimitações e limitações do estudo.
+  \item Capítulo~\ref{ch:analise_discussao} (\textbf{\titresultados}). Apresenta e discute os achados \ifdefesa da pesquisa\else obtidos até o momento\fi{} à luz dos objetivos e do referencial teórico.
+        % O item seguinte muda conforme a etapa (ver main.tex)
+        \ifdefesa
+  \item Capítulo~\ref{ch:conclusao} (\textbf{Conclusão}). Responde à pergunta de pesquisa, sintetiza as contribuições e apresenta as limitações e os trabalhos futuros.
+        \else
+  \item Capítulo~\ref{ch:plano_trabalho} (\textbf{Planos para a continuidade do trabalho}). Detalha as atividades previstas até a qualificação e até a defesa, consolidadas em cronograma.
+        \fi
+\end{itemize}
+
+Complementam o texto a Declaração de Uso de IA Generativa, as Referências e o Apêndice~\ref{ap:ap_string}, que reúne as expressões de busca aplicadas em cada base de dados para a revisão da literatura.

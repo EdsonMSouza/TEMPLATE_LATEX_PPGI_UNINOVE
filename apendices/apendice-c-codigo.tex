@@ -1,0 +1,24 @@
+\apendice{Trecho do código de modelagem}
+\label{ap:codigo}
+
+O código completo está disponível no repositório do projeto. O trecho a seguir apresenta o treinamento do modelo final e o cálculo dos valores SHAP.
+
+\begin{lstlisting}[style=codigo, language=Python]
+import pandas as pd
+import shap
+from xgboost import XGBRegressor
+
+df = pd.read_parquet("dados/base_horaria.parquet")
+treino = df[df["data_hora"] < "2024-01-01"]
+teste = df[df["data_hora"] >= "2024-01-01"]
+
+variaveis = ["hora", "dia_semana", "feriado", "lentidao_lag1",
+             "precipitacao", "temperatura", "ocorrencias", "eventos"]
+
+modelo = XGBRegressor(n_estimators=600, learning_rate=0.05,
+                      max_depth=6, subsample=0.8, random_state=42)
+modelo.fit(treino[variaveis], treino["lentidao_km"])
+
+explicador = shap.TreeExplainer(modelo)
+valores_shap = explicador.shap_values(teste[variaveis])
+\end{lstlisting}

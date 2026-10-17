@@ -1,0 +1,40 @@
+\apendice{Expressões de busca da revisão sistemática}
+\label{ap:ap_string}
+
+\subsection*{Scopus}
+
+\begin{quadros}[!ht]
+  \caption{Expressão de busca aplicada na base Scopus}
+  \label{qua:string_scopus}
+\begin{lstlisting}[style=busca]
+TITLE-ABS-KEY(
+  ("traffic congestion" OR "traffic flow" OR "traffic speed")
+  AND (forecast* OR predict*)
+  AND ("machine learning" OR "gradient boosting" OR
+       "random forest" OR "XGBoost" OR "deep learning")
+  AND (explainab* OR interpretab* OR "SHAP")
+)
+AND PUBYEAR > 2014 AND PUBYEAR < 2026
+AND LANGUAGE(English) AND DOCTYPE(ar)
+\end{lstlisting}
+  {\footnotesize\singlespacing Data da busca: 12/05/2025. Registros recuperados: 412.\par}
+  \fonte{Elaborado pela autora (\ano).}
+\end{quadros}
+
+\subsection*{Web of Science}
+
+\begin{quadros}[!ht]
+  \caption{Expressão de busca aplicada na base Web of Science}
+  \label{qua:string_wos}
+\begin{lstlisting}[style=busca]
+TS=(
+  ("traffic congestion" OR "traffic flow" OR "traffic speed")
+  AND (forecast* OR predict*)
+  AND ("machine learning" OR "gradient boosting" OR
+       "random forest" OR "XGBoost" OR "deep learning")
+  AND (explainab* OR interpretab* OR "SHAP")
+)
+\end{lstlisting}
+  {\footnotesize\singlespacing Filtros: período (2015--2025), tipo (artigo), idioma (inglês). Data da busca: 12/05/2025. Registros recuperados: 287.\par}
+  \fonte{Elaborado pela autora (\ano).}
+\end{quadros}
