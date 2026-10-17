@@ -121,7 +121,7 @@ O *template* pode ser adaptado livremente, desde que as alterações respeitem o
 
 O *template* compila com `pdflatex` e `bibtex` em distribuições atuais (TeX Live ou MiKTeX, versão 2024 ou posterior), em ambientes como:
 
-- **Overleaf**, *online*, sem instalação ([Abrir no Overleaf](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fcodeload.github.com%2FEdsonMSouza%2FTemplate-LaTeX-PPGI---UNINOVE%2Fzip%2Frefs%2Fheads%2Fmain));
+- **Overleaf**, *online*, sem instalação ([Abrir no Overleaf](https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fcodeload.github.com%2FEdsonMSouza%2FTEMPLATE_LATEX_PPGI_UNINOVE%2Fzip%2Frefs%2Fheads%2Fmain));
 - **VS Code** com a extensão LaTeX Workshop;
 - **TeXstudio**, com MiKTeX ou TeX Live.
 
