@@ -1,13 +1,21 @@
 \apendice{Trecho do código de modelagem}
 \label{ap:codigo}
 
-O código completo está disponível no repositório do projeto. O trecho a seguir apresenta o treinamento do modelo final e o cálculo dos valores SHAP.
+\begin{orientacao}[Código-fonte em apêndice]
+  O apêndice de código não substitui o repositório: ele apresenta apenas os trechos essenciais para que o leitor compreenda as decisões de modelagem descritas na Metodologia, como a partição dos dados, a configuração dos hiperparâmetros e o cálculo das explicações. Informe o endereço do repositório e identifique a versão exata do código usada nos resultados, por meio de uma \textit{tag}, de um \textit{commit} ou, de preferência, de um DOI gerado em um arquivo permanente como o Zenodo. Registre também as versões da linguagem e das bibliotecas e a semente aleatória, condições mínimas para a reprodutibilidade. Assim como as demais ilustrações, o trecho deve ter título, fonte e ser citado no texto. Não copie o código inteiro; prefira trechos curtos e comentados. Para incluir um arquivo inteiro sem colá-lo, use \texttt{\textbackslash lstinputlisting[style=codigo, language=Python]\{caminho/arquivo.py\}}.
+\end{orientacao}
 
+O código completo está disponível no repositório do projeto (\preencher{endereço do repositório e DOI da versão utilizada}). O Quadro~\ref{qua:codigo_modelo} apresenta o treinamento do modelo final e o cálculo dos valores SHAP, executados em Python 3.11, com as bibliotecas pandas 2.2, XGBoost 2.0 e SHAP 0.45.
+
+\begin{quadros}[H]
+  \caption{Treinamento do modelo final e cálculo dos valores SHAP}
+  \label{qua:codigo_modelo}
 \begin{lstlisting}[style=codigo, language=Python]
 import pandas as pd
 import shap
 from xgboost import XGBRegressor
 
+# Particao temporal: o teste e posterior ao treino (evita vazamento)
 df = pd.read_parquet("dados/base_horaria.parquet")
 treino = df[df["data_hora"] < "2024-01-01"]
 teste = df[df["data_hora"] >= "2024-01-01"]
@@ -15,10 +23,14 @@ teste = df[df["data_hora"] >= "2024-01-01"]
 variaveis = ["hora", "dia_semana", "feriado", "lentidao_lag1",
              "precipitacao", "temperatura", "ocorrencias", "eventos"]
 
+# Hiperparametros selecionados na validacao (Secao 3.x)
 modelo = XGBRegressor(n_estimators=600, learning_rate=0.05,
                       max_depth=6, subsample=0.8, random_state=42)
 modelo.fit(treino[variaveis], treino["lentidao_km"])
 
+# Valores SHAP exatos para modelos de arvores (TreeSHAP)
 explicador = shap.TreeExplainer(modelo)
 valores_shap = explicador.shap_values(teste[variaveis])
 \end{lstlisting}
+  \fonte{Elaborado pela autora (\ano).}
+\end{quadros}

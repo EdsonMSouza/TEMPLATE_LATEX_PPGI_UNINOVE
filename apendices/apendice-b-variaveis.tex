@@ -1,7 +1,11 @@
 \apendice{Dicionário de variáveis}
 \label{ap:variaveis}
 
-O Quadro~\ref{qua:variaveis} descreve as variáveis da base de dados utilizada na modelagem.
+\begin{orientacao}[Dicionário de variáveis]
+  O dicionário de variáveis documenta cada atributo da base utilizada na modelagem e permite que outro pesquisador compreenda, audite e reproduza o estudo. Liste todas as variáveis que entram no modelo, inclusive as derivadas (defasagens, médias móveis, indicadores calculados), e identifique a variável-alvo. Para cada uma, informe o tipo, a unidade ou o domínio de valores, a origem e, no caso das variáveis derivadas, a regra de cálculo. Essa informação é decisiva para afastar o vazamento de dados: uma variável derivada que use informação posterior ao instante da previsão invalida a avaliação do modelo. Se a base tiver muitas variáveis, agrupe-as por dimensão (temporal, meteorológica, operacional) ou divida o quadro em mais de uma página. No texto, cite o quadro antes de ele aparecer.
+\end{orientacao}
+
+O Quadro~\ref{qua:variaveis} descreve as variáveis da base de dados utilizada na modelagem, com a origem de cada uma. As variáveis derivadas foram calculadas apenas com informações disponíveis até o instante da previsão.
 
 \begin{quadros}[H]
   \centering
@@ -9,19 +13,22 @@ O Quadro~\ref{qua:variaveis} descreve as variáveis da base de dados utilizada n
   \label{qua:variaveis}
   \small
   \singlespacing
+  \setlength{\tabcolsep}{4pt}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{|l|c|c|l|}
+  \begin{tabular}{|l|c|c|l|l|}
     \hline
-    \textbf{Variável} & \textbf{Tipo} & \textbf{Unidade} & \textbf{Descrição} \\ \hline
-    \texttt{lentidao\_km}   & contínua  & km     & Extensão total de lentidão (alvo) \\ \hline
-    \texttt{lentidao\_lag1} & contínua  & km     & Lentidão observada na hora anterior \\ \hline
-    \texttt{hora}           & discreta  & 0 a 23 & Hora do dia \\ \hline
-    \texttt{dia\_semana}    & categórica & 1 a 7 & Dia da semana \\ \hline
-    \texttt{feriado}        & binária   & 0 ou 1 & Indicador de feriado \\ \hline
-    \texttt{precipitacao}   & contínua  & mm     & Precipitação acumulada na hora \\ \hline
-    \texttt{temperatura}    & contínua  & °C     & Temperatura média do ar \\ \hline
-    \texttt{ocorrencias}    & discreta  & contagem & Ocorrências viárias ativas \\ \hline
-    \texttt{eventos}        & binária   & 0 ou 1 & Evento de grande porte na cidade \\ \hline
+    \textbf{Variável} & \textbf{Tipo} & \textbf{Unidade} & \textbf{Descrição} & \textbf{Origem} \\ \hline
+    \texttt{lentidao\_km}   & contínua   & km       & Extensão total de lentidão (alvo)    & CET-SP \\ \hline
+    \texttt{lentidao\_lag1} & contínua   & km       & Lentidão observada na hora anterior  & Derivada \\ \hline
+    \texttt{hora}           & discreta   & 0 a 23   & Hora do dia                          & Derivada \\ \hline
+    \texttt{dia\_semana}    & categórica & 1 a 7    & Dia da semana                        & Derivada \\ \hline
+    \texttt{feriado}        & binária    & 0 ou 1   & Indicador de feriado                 & Calendário oficial \\ \hline
+    \texttt{precipitacao}   & contínua   & mm       & Precipitação acumulada na hora       & INMET \\ \hline
+    \texttt{temperatura}    & contínua   & °C       & Temperatura média do ar              & INMET \\ \hline
+    \texttt{ocorrencias}    & discreta   & contagem & Ocorrências viárias ativas           & CET-SP \\ \hline
+    \texttt{eventos}        & binária    & 0 ou 1   & Evento de grande porte na cidade     & Agenda municipal \\ \hline
   \end{tabular}
+
   \fonte{Elaborado pela autora (\ano).}
+  {\footnotesize\singlespacing Nota: CET-SP: Companhia de Engenharia de Tráfego de São Paulo; INMET: Instituto Nacional de Meteorologia. Variáveis derivadas: \texttt{lentidao\_lag1} corresponde a \texttt{lentidao\_km} defasada em uma hora; \texttt{hora} e \texttt{dia\_semana} foram extraídas do carimbo de data e hora do registro.\par}
 \end{quadros}

@@ -15,15 +15,58 @@
 \label{sec:visao_geral_resultados}
 Descrever uma síntese do que será tratado no capítulo, incluindo os objetivos específicos e os resultados preliminares obtidos. A visão geral deve fornecer ao leitor um panorama dos achados, destacando como cada resultado contribui para responder à pergunta de pesquisa e alcançar os objetivos propostos. Podem ser utilizadas outras subseções para organizar os resultados por objetivo específico, por construto teórico ou por tipo de análise realizada.
 
-Exemplo de inserção de tabela com os resultados numéricos. A Tabela~\ref{tab:exemplo} apresenta resultados numéricos aleatórios. Substituir com seus dados.
+% ------------------------------------------------------------------------------
+% EXEMPLO: tabela com notas (padrão IBGE, adotado pela NBR 14724)
+% Estrutura obrigatória:
+%   - título acima ("Tabela N - ..."), gerado por \caption;
+%   - no mínimo três traços horizontais (topo, cabeçalho e fechamento);
+%   - SEM traços verticais nas laterais (a tabela não é fechada dos lados);
+%   - rodapé, nesta ordem: Fonte, Nota geral (se houver), Notas específicas.
+% Notas específicas: marque o elemento com \textsuperscript{(1)}, (2)...,
+% numeradas de cima para baixo e da esquerda para a direita, e escreva cada
+% nota abaixo da fonte, precedida da chamada correspondente.
+% Nota geral: observação que vale para a tabela inteira (inclusive a
+% explicação de sinais convencionais), em linha iniciada por "Nota:".
+% NUNCA use \footnote ou \footnotemark em tabelas: pelo IBGE, as notas
+% ficam no rodapé da própria tabela, e não no rodapé da página.
+% ------------------------------------------------------------------------------
+\begin{orientacao}[Notas em tabelas]
+  As notas de uma tabela ficam no rodapé da própria tabela, e não no rodapé da página. Pelas normas de apresentação tabular do IBGE, adotadas pela ABNT, o rodapé segue sempre a mesma ordem: primeiro a fonte, depois a nota geral, que vale para a tabela inteira e é iniciada por ``Nota:'', e por fim as notas específicas, que esclarecem um elemento marcado com uma chamada numérica, como (1) e (2). As chamadas são numeradas de cima para baixo e da esquerda para a direita. A tabela tem traços horizontais no topo, sob o cabeçalho e no fechamento, mas não tem traços verticais nas laterais. Substitua os valores do exemplo pelos seus dados e mantenha apenas as notas necessárias.
+\end{orientacao}
+
+A Tabela~\ref{tab:exemplo} apresenta o desempenho do modelo no conjunto de teste, segundo as métricas definidas na Seção~\ref{sec:analise}. Os valores do exemplo são fictícios e devem ser substituídos pelos resultados do estudo.
+
 \begin{table}[H]
   \centering
-  \caption{Exemplo de tabela com apresentação de dados numéricos}
+  \caption{Desempenho do modelo no conjunto de teste}
   \label{tab:exemplo}
-  \begin{tabular*}
-    {\linewidth}
-    {@{\extracolsep{\fill}} l c}
-    \hline \textbf{Métrica} & \textbf{Valor} \\ \hline Acurácia (\textit{accuracy}) & 0,51 \\ Precisão (\textit{precision}) & 0,50 \\ Revocação (\textit{recall}) & 0,96 \\ \textit{F1-score} & 0,66 \\ \hline
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l c}
+    \hline
+    \textbf{Métrica} & \textbf{Valor} \\ \hline
+    Acurácia (\textit{accuracy})\textsuperscript{(1)} & 0,51 \\
+    Precisão (\textit{precision})                     & 0,50 \\
+    Revocação (\textit{recall})                       & 0,96 \\
+    \textit{F1-score}\textsuperscript{(2)}            & 0,66 \\ \hline
   \end{tabular*}
   \fonte{Elaborada pelo autor (\ano).}
+  {\footnotesize\singlespacing\raggedright
+   Nota: Valores calculados sobre o conjunto de teste, não utilizado no treinamento nem na seleção de hiperparâmetros.\par
+   (1) Proporção de classificações corretas sobre o total de casos avaliados.\par
+   (2) Média harmônica entre precisão e revocação, conforme a Equação~\eqref{eq:f1}.\par}
 \end{table}
+
+% ------------------------------------------------------------------------------
+% EXEMPLO: nota de rodapé explicativa no TEXTO (adaptar ou apagar)
+% No sistema autor-data adotado no modelo, as notas de rodapé servem apenas
+% para EXPLICAR (comentários, esclarecimentos, traduções); as citações vão no
+% texto, com \cite ou \citeonline. Uso: palavra\footnote{Texto da nota.}
+% sem espaço antes de \footnote, e depois da pontuação quando a nota se
+% refere à frase inteira. A numeração é automática e contínua no trabalho.
+% Em tabelas e quadros, não use \footnote: use as notas do rodapé da tabela,
+% como no exemplo anterior.
+% ------------------------------------------------------------------------------
+\begin{orientacao}[Notas de rodapé no texto]
+  Notas de rodapé explicativas acrescentam esclarecimentos que interromperiam a leitura se fossem incluídos no texto, como a definição de um termo técnico, a justificativa de uma escolha secundária ou a tradução de uma expressão. Como o modelo adota o sistema autor-data, as referências não vão para o rodapé: a citação permanece no texto, e a nota pode conter uma citação no mesmo formato, como em \citeonline{Lundberg2017}. Use as notas com moderação; se a informação for essencial para o argumento, ela pertence ao texto. Notas de rodapé de página valem apenas para o texto corrido; tabelas e quadros têm notas próprias, no seu rodapé.
+\end{orientacao}
+
+O desempenho do modelo é resumido pelo \textit{F1-score}, que concilia precisão e revocação em um único indicador e alcançou 0,66\footnote{Valor obtido pela Equação~\eqref{eq:f1}, com precisão de 0,50 e revocação de 0,96. A acurácia (0,51) não é adotada como métrica principal porque, com classes desbalanceadas, pode ser elevada mesmo quando o modelo ignora a classe minoritária.}. A combinação de revocação elevada e precisão próxima de 0,50 indica que o modelo identifica quase todos os casos positivos, mas à custa de muitos falsos alarmes.

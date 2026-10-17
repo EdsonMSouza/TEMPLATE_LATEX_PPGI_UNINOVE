@@ -43,6 +43,35 @@ em que $N$ é o conjunto de jogadores, $S$ é uma coalizão que não contém $j$
 \label{sec:construto_2}
 A segunda seção conceitual segue a mesma lógica. Recomenda-se que a sequência dos construtos acompanhe a ordem dos objetivos específicos, o que facilita ao leitor perceber como cada base teórica será mobilizada nas etapas analíticas.
 
+A seguir são apresentados exemplos de utilização de hierarquias de seções
+
+% ------------------------------------------------------------------------------
+% EXEMPLO: hierarquia de seções (adaptar ou apagar)
+% Níveis disponíveis (numeração progressiva, NBR 6024):
+%   \chapter        1        primária
+%   \section        1.1      secundária
+%   \subsection     1.1.1    terciária
+%   \subsubsection  1.1.1.1  quaternária
+% Cada título recebe um \label LOGO APÓS o comando, com prefixo que indica
+% o nível e nome curto, sem acentos, espaços ou maiúsculas:
+%   sec:nome   subsec:nome   subsubsec:nome
+% Remissão no texto: Seção~\ref{subsec:nome} (o ~ impede a quebra de linha
+% entre a palavra e o número).
+% ------------------------------------------------------------------------------
+\subsection{Esta é uma subseção}
+\label{subsec:exemplo_subsecao}
+
+\begin{orientacao}[Seções, subseções e rótulos]
+  A subseção (\texttt{\textbackslash subsection}) divide uma seção em partes com unidade temática própria, e a subsubseção (\texttt{\textbackslash subsubsection}) detalha um aspecto específico de uma subseção. Escreva os títulos apenas com a inicial maiúscula, pois a formatação é aplicada pelo modelo. Abra uma subdivisão somente se houver pelo menos duas no mesmo nível: uma subseção 2.3.1 isolada, sem 2.3.2, indica que o conteúdo pertence à própria seção 2.3. Evite também dois títulos seguidos sem texto entre eles; cada nível deve começar com ao menos um parágrafo que anuncie o que vem a seguir. Para remeter a uma divisão, use \texttt{Seção\textasciitilde\textbackslash ref\{rótulo\}}: o número é atualizado automaticamente se a ordem do texto mudar. Prefira não passar do quarto nível de numeração, pois divisões muito profundas dificultam a leitura.
+\end{orientacao}
+
+Texto introdutório da subseção, que apresenta o conteúdo das subsubseções seguintes. A Seção~\ref{subsubsec:exemplo_subsubsecao} detalha o primeiro aspecto.
+
+\subsubsection{Esta é uma subsubseção}
+\label{subsubsec:exemplo_subsubsecao}
+
+Texto da subsubseção. Para remeter à subseção que a contém, escreva Seção~\ref{subsec:exemplo_subsecao}.
+
 \section{Trabalhos relacionados}
 \label{sec:trabalhos_relacionados}
 A seção de trabalhos relacionados tem como finalidade examinar criticamente os estudos selecionados na revisão da literatura que abordam, total ou parcialmente, o problema investigado. Mais do que descrever cada estudo, cabe compará-los segundo dimensões analíticas comuns (objetivo, método, contexto, dados e resultados), evidenciando o que já está estabelecido e o que permanece em aberto.
@@ -109,5 +138,112 @@ O Quadro~\ref{qua:estudos_rsl} sintetiza as principais dimensões de comparaçã
 
   \fonte{Elaborado pelo autor (\ano).}
 \end{quadros}
+
+% ------------------------------------------------------------------------------
+% EXEMPLO: tabela em modo paisagem (adaptar ou apagar)
+% Use paisagem apenas quando a tabela não couber na largura da página em
+% retrato, mesmo com fonte reduzida. O ambiente landscape (pacote lscape, já
+% carregado pela classe) gira a página inteira e começa uma página nova; o
+% texto que vem depois continua na página seguinte, em retrato.
+% Regras da tabela (padrão IBGE, adotado pelo manual): dados numéricos,
+% título acima, fonte abaixo, sem traços verticais e sem fechamento lateral;
+% apenas os fios do cabeçalho e do rodapé (\toprule, \midrule, \bottomrule).
+% Os valores abaixo são FICTÍCIOS, assim como as referências E01 a E05.
+% ------------------------------------------------------------------------------
+\begin{orientacao}[Tabela em modo paisagem]
+  Quadro e tabela têm funções distintas. O quadro organiza informação textual e tem bordas em todos os lados, como o Quadro~\ref{qua:estudos_rsl}. A tabela apresenta dados numéricos, segue o padrão do IBGE e não tem traços verticais nem bordas laterais, como a Tabela~\ref{tab:desempenho_corpus}. A orientação paisagem é reservada a tabelas que não cabem na largura da página em retrato. A tabela deve ser citada no texto antes de aparecer, e os valores devem ser transcritos dos estudos originais, com a mesma métrica e o mesmo número de casas decimais.
+\end{orientacao}
+
+Além da comparação qualitativa, convém confrontar o desempenho que cada estudo reporta. A Tabela~\ref{tab:desempenho_corpus} reúne, para os mesmos estudos, o volume de dados, a proporção da classe positiva, o modelo de melhor resultado, o esquema de validação e as métricas de avaliação informadas pelos autores. A leitura conjunta dessas colunas mostra que valores elevados de AUC-ROC convivem com AUC-PR modesta nos estudos de baixa prevalência (E04 e E05), o que reforça a necessidade de métricas sensíveis ao desbalanceamento na avaliação de classes raras.
+
+\begin{landscape}
+  \begin{table}[H]
+    \centering
+    \caption{Desempenho preditivo reportado pelos estudos do corpus da revisão sistemática}
+    \label{tab:desempenho_corpus}
+    \footnotesize
+    \singlespacing
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{cllrrllccccl}
+      \toprule
+      \textbf{ID} &
+      \textbf{Referência} &
+      \makecell[l]{\textbf{Domínio}\\\textbf{dos dados}} &
+      \makecell{\textbf{Observações}\\\textbf{(n)}} &
+      \makecell{\textbf{Classe}\\\textbf{positiva (\%)}} &
+      \makecell[l]{\textbf{Melhor}\\\textbf{modelo}} &
+      \textbf{Validação} &
+      \textbf{AUC-ROC} &
+      \textbf{AUC-PR} &
+      \textbf{F1} &
+      \textbf{Revocação} &
+      \textbf{XAI} \\
+      \midrule
+      E01 & \citeonline{silva2024}    & \makecell[l]{Riscos ambientais\\urbanos} & 18.450 & 12,4 & XGBoost       & \makecell[l]{$k$-fold\\($k=10$)} & 0,912 & 0,684 & 0,701 & 0,742 & Não              \\
+      E02 & \citeonline{chen2024xai}  & \makecell[l]{Observação\\da Terra} & 52.300 &  8,7 & XGBoost       & \makecell[l]{Espacial\\(5 blocos)} & 0,887 & 0,611 & 0,645 & 0,690 & SHAP             \\
+      E03 & \citeonline{oliveira2025} & \makecell[l]{Sentinel-2\\e cadastro} &  9.870 & 21,3 & \makecell[l]{Random\\Forest} & \makecell[l]{\textit{Holdout}\\70/30} & 0,856 & 0,703 & 0,672 & 0,705 & Não              \\
+      E04 & \citeonline{santos2025}   & \makecell[l]{Anomalias\\territoriais} & 31.020 &  2,1 & LightGBM      & \makecell[l]{Estratificada\\($k=5$)} & 0,941 & 0,452 & 0,513 & 0,804 & Não              \\
+      E05 & \citeonline{martins2026}  & \makecell[l]{Sistemas\\críticos} &  7.400 &  5,6 & \makecell[l]{Rede\\profunda} & \makecell[l]{\textit{Holdout}\\temporal} & 0,903 & 0,577 & 0,598 & 0,631 & \makecell[l]{Índices\\causais} \\
+      \bottomrule
+    \end{tabular}
+
+    \fonte{Elaborada pelo autor (\ano), com base nos estudos citados.}
+    {\footnotesize Nota: AUC-ROC: área sob a curva ROC; AUC-PR: área sob a curva de precisão e revocação. A AUC-PR depende da proporção da classe positiva e deve ser comparada com cautela entre estudos de prevalências distintas.\par}
+  \end{table}
+\end{landscape}
+
+% ------------------------------------------------------------------------------
+% EXEMPLO: tabela em paisagem GIRADA NO LEITOR DE PDF (adaptar ou apagar)
+% Diferença em relação ao exemplo anterior: o ambiente "paisagem" (definido em
+% config/preambulo.tex) também gira a página na tela, de modo que o leitor de
+% PDF já a exibe na horizontal. Na impressão, os dois ambientes são iguais.
+% Recursos ilustrados aqui:
+%   \multicolumn{n}{c}{...}  título que agrupa n colunas
+%   \cmidrule(lr){a-b}       fio parcial sob o grupo, das colunas a até b
+%   ..                       sinal convencional do IBGE para "não se aplica"
+% Os valores são FICTÍCIOS e coerentes com a Tabela de desempenho anterior.
+% ------------------------------------------------------------------------------
+\begin{orientacao}[Tabela girada para leitura na tela]
+  Prefira o ambiente \texttt{paisagem} quando o trabalho for lido principalmente em tela, como na avaliação pela banca, pois a página já aparece na horizontal, sem que o leitor precise girá-la. Títulos de grupo (\texttt{\textbackslash multicolumn}) com fios parciais (\texttt{\textbackslash cmidrule}) evitam repetir o mesmo rótulo em várias colunas. Nas células sem valor, use os sinais convencionais do IBGE: ``..'' (não se aplica), ``...'' (dado não disponível) e ``--'' (valor igual a zero).
+\end{orientacao}
+
+O esquema de validação também condiciona a comparação. Os estudos que relataram resultados sob dois esquemas permitem estimar quanto do desempenho decorre da partição aleatória dos dados, que ignora a dependência espacial e temporal entre as observações. A Tabela~\ref{tab:validacao_corpus} contrapõe os dois cenários. Em todos os estudos, a validação que respeita essa dependência reduziu a AUC-PR, em média, em 8,1 pontos percentuais, e o F1 em 6,2 pontos. Os valores obtidos com partição aleatória tendem, portanto, a superestimar o desempenho esperado em operação.
+
+\begin{paisagem}
+  \begin{table}[H]
+    \centering
+    \caption{Desempenho reportado pelos estudos do corpus segundo o esquema de validação}
+    \label{tab:validacao_corpus}
+    \footnotesize
+    \singlespacing
+    \setlength{\tabcolsep}{5pt}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{cllcccccccc}
+      \toprule
+      & & &
+      \multicolumn{3}{c}{\textbf{Validação aleatória}} &
+      \multicolumn{3}{c}{\textbf{Validação espacial ou temporal}} &
+      \multicolumn{2}{c}{\textbf{Variação (p.p.)}} \\
+      \cmidrule(lr){4-6} \cmidrule(lr){7-9} \cmidrule(lr){10-11}
+      \textbf{ID} & \textbf{Referência} & \textbf{Modelo} &
+      \textbf{AUC-ROC} & \textbf{AUC-PR} & \textbf{F1} &
+      \textbf{AUC-ROC} & \textbf{AUC-PR} & \textbf{F1} &
+      \textbf{AUC-PR} & \textbf{F1} \\
+      \midrule
+      E01 & \citeonline{silva2024}    & XGBoost       & 0,912 & 0,684 & 0,701 & 0,861 & 0,592 & 0,633 & $-9{,}2$ & $-6{,}8$ \\
+      E02 & \citeonline{chen2024xai}  & XGBoost       & 0,934 & 0,702 & 0,711 & 0,887 & 0,611 & 0,645 & $-9{,}1$ & $-6{,}6$ \\
+      E03 & \citeonline{oliveira2025} & Random Forest & 0,856 & 0,703 & 0,672 & 0,812 & 0,641 & 0,618 & $-6{,}2$ & $-5{,}4$ \\
+      E04 & \citeonline{santos2025}   & LightGBM      & 0,941 & 0,452 & 0,513 & 0,902 & 0,381 & 0,462 & $-7{,}1$ & $-5{,}1$ \\
+      E05 & \citeonline{martins2026}  & Rede profunda & 0,948 & 0,668 & 0,671 & 0,903 & 0,577 & 0,598 & $-9{,}1$ & $-7{,}3$ \\
+      \midrule
+      \multicolumn{3}{l}{\textbf{Média}} & .. & .. & .. & .. & .. & .. & $\mathbf{-8{,}1}$ & $\mathbf{-6{,}2}$ \\
+      \bottomrule
+    \end{tabular}
+
+    \fonte{Elaborada pelo autor (\ano), com base nos estudos citados.}
+    {\footnotesize Nota: Variação em pontos percentuais (p.p.) entre a validação espacial ou temporal e a aleatória. E05 adota validação temporal; os demais, espacial. Sinal convencional: .. não se aplica.\par}
+  \end{table}
+\end{paisagem}
 
 O fechamento desta seção deve retomar, de forma argumentativa, a lacuna anunciada na Seção~\ref{sec:problema}. É nesse ponto que a comparação entre os estudos deixa de ser descritiva e passa a justificar, com base na própria literatura, a pertinência e a originalidade da investigação.

@@ -38,3 +38,28 @@ TS=(
   {\footnotesize\singlespacing Filtros: período (2015--2025), tipo (artigo), idioma (inglês). Data da busca: 12/05/2025. Registros recuperados: 287.\par}
   \fonte{Elaborado pela autora (\ano).}
 \end{quadros}
+
+\begin{orientacao}[Inclusão de outras bases de dados]
+  As bases Scopus e Web of Science são apresentadas apenas como exemplo. Inclua todas as bases efetivamente consultadas na revisão, como IEEE Xplore, ACM Digital Library, ScienceDirect, PubMed, SciELO ou bases específicas da área, cada uma em sua própria subseção e em seu próprio quadro. Cada base tem sintaxe própria (campos, operadores e truncamentos), por isso a expressão deve ser transcrita exatamente como foi executada, e não apenas traduzida a partir da expressão da Scopus. Os conceitos e a lógica booleana, entretanto, devem ser equivalentes entre as bases, e eventuais diferenças precisam ser justificadas na Metodologia. Para cada base, registre a data da busca, os filtros aplicados e o número de registros recuperados. A soma desses números deve coincidir com o total informado na etapa de identificação do fluxo PRISMA. O Google Acadêmico pode ser usado como fonte complementar, mas não substitui as bases indexadas, porque seus resultados variam ao longo do tempo e não podem ser reproduzidos.
+\end{orientacao}
+
+% ------------------------------------------------------------------------------
+% MODELO PARA NOVA BASE (copiar, descomentar e ajustar)
+% Trocar o nome da base, o rótulo (qua:string_...), a expressão, os filtros,
+% a data e o número de registros. Manter a expressão exatamente como foi
+% executada na base, para que possa ser copiada do PDF e reaplicada.
+% ------------------------------------------------------------------------------
+% \subsection*{IEEE Xplore}
+%
+% \begin{quadros}[!ht]
+%   \caption{Expressão de busca aplicada na base IEEE Xplore}
+%   \label{qua:string_ieee}
+% \begin{lstlisting}[style=busca]
+% ("All Metadata":"traffic congestion" OR "All Metadata":"traffic flow")
+% AND ("All Metadata":forecast* OR "All Metadata":predict*)
+% AND ("All Metadata":"machine learning" OR "All Metadata":"deep learning")
+% AND ("All Metadata":explainab* OR "All Metadata":"SHAP")
+% \end{lstlisting}
+%   {\footnotesize\singlespacing Filtros: período (2015--2025), tipo (artigo de periódico). Data da busca: dd/mm/aaaa. Registros recuperados: n.\par}
+%   \fonte{Elaborado pelo(a) autor(a) (\ano).}
+% \end{quadros}

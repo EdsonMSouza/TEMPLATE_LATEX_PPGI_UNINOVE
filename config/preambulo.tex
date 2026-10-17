@@ -26,6 +26,7 @@
 %    4. Diagramas em TikZ
 %    5. Listagens de código e expressões de busca
 %    6. Cores dos links conforme o modo de compilação
+%    7. Metadados do PDF (título, autor, assunto e palavras-chave)
 % ==============================================================================
 
 
@@ -45,6 +46,30 @@
 
 % Observação: xcolor, colortbl, tabularx, booktabs, multirow e makecell já são
 % carregados pela classe. A opção [table] do xcolor é repassada em main.tex.
+
+% ------------------------------------------------------------------------------
+% Páginas em paisagem: dois ambientes
+%   landscape  (pacote lscape, carregado pela classe): gira o conteúdo; no
+%              leitor de PDF a página continua em retrato ("deitada").
+%   paisagem   (definido abaixo): gira o conteúdo E a página no leitor de PDF,
+%              que já a exibe na horizontal para leitura. A impressão é igual.
+%   Uso: \begin{paisagem} \begin{table}[H] ... \end{table} \end{paisagem}
+% Ambos começam e terminam em página nova. O giro na tela funciona com
+% pdfLaTeX (padrão do modelo); em outros compiladores, "paisagem" se comporta
+% como "landscape".
+% ------------------------------------------------------------------------------
+\newtoks\atributospagina
+\ifdefined\pdfpageattr
+  \newenvironment{paisagem}
+    {\clearpage
+     \atributospagina=\pdfpageattr                       % guarda o estado atual
+     \global\pdfpageattr\expandafter{\the\pdfpageattr /Rotate 90}%
+     \begin{landscape}}
+    {\end{landscape}%                                    % termina com \clearpage
+     \global\pdfpageattr=\atributospagina}               % volta ao retrato
+\else
+  \newenvironment{paisagem}{\begin{landscape}}{\end{landscape}}
+\fi
 
 
 % ==============================================================================
@@ -94,10 +119,10 @@
 \else
   % Modo revisão: caixa de destaque com o título "Orientação ao aluno"
   \newenvironment{orientacao}[1][]
-  {\begin{destaque}\small\setlength{\parindent}{0pt}%
-      \textbf{Orientação ao aluno\if\relax\detokenize{#1}\relax\else: #1\fi.}%
-      \par\smallskip}
-      {\end{destaque}}
+    {\begin{destaque}\small\setlength{\parindent}{0pt}%
+     \textbf{Orientação ao aluno\if\relax\detokenize{#1}\relax\else: #1\fi.}%
+     \par\smallskip}
+    {\end{destaque}}
 \fi
 
 
@@ -118,25 +143,25 @@
 %        \node[box, below=of a] (b) {Etapa 2};
 %        \draw[arrow] (a) -- (b);
 \tikzset{
-% box: caixa principal, arredondada, sem hifenização no texto interno
-box/.style={
+  % box: caixa principal, arredondada, sem hifenização no texto interno
+  box/.style={
     draw, rectangle, rounded corners=4pt,
     minimum width=9cm, minimum height=1.0cm, text width=6.8cm,
     align=center, font=\small, inner sep=6pt, fill=white,
     execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}
   },
-% srcbox: caixa compacta, para fontes de dados no topo de um diagrama
-srcbox/.style={
+  % srcbox: caixa compacta, para fontes de dados no topo de um diagrama
+  srcbox/.style={
     draw, rectangle, rounded corners=4pt,
     minimum width=3.2cm, minimum height=1.4cm, text width=2.9cm,
     align=center, font=\small, inner sep=8pt, fill=white,
     execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}
   },
-% arrow: conector com ponta Stealth de 6 pt
-arrow/.style={
--{Stealth[length=6pt, width=5pt]},
-line width=0.8pt
-}
+  % arrow: conector com ponta Stealth de 6 pt
+  arrow/.style={
+    -{Stealth[length=6pt, width=5pt]},
+    line width=0.8pt
+  }
 }
 
 
@@ -177,15 +202,15 @@ line width=0.8pt
 %        \end{lstlisting}
 % ------------------------------------------------------------------------------
 \lstdefinestyle{busca}{
-basicstyle=\footnotesize\ttfamily,
-frame=single, rulecolor=\color{black},
-breaklines=true, breakatwhitespace=true,     % quebra apenas em espaços
-columns=fullflexible, keepspaces=true,       % espaçamento natural
-showstringspaces=false, upquote=true,        % aspas retas
-% Acentos dentro das listagens (o listings não os reconhece sozinho)
-inputencoding=utf8, extendedchars=true,
-literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
-{ã}{{\~a}}1 {õ}{{\~o}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1 {ê}{{\^e}}1
+  basicstyle=\footnotesize\ttfamily,
+  frame=single, rulecolor=\color{black},
+  breaklines=true, breakatwhitespace=true,     % quebra apenas em espaços
+  columns=fullflexible, keepspaces=true,       % espaçamento natural
+  showstringspaces=false, upquote=true,        % aspas retas
+  % Acentos dentro das listagens (o listings não os reconhece sozinho)
+  inputencoding=utf8, extendedchars=true,
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+           {ã}{{\~a}}1 {õ}{{\~o}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1 {ê}{{\^e}}1
 }
 
 
@@ -202,12 +227,13 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
 % ------------------------------------------------------------------------------
 \ifmodofinal
   \hypersetup{colorlinks=true, linkcolor=black, citecolor=black,
-    filecolor=black, urlcolor=black}
+              filecolor=black, urlcolor=black}
   \renewcommand*{\backrefalt}[4]{}             % remove "Citado na pág."
 \else
   \hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue,
-    filecolor=blue, urlcolor=blue}
+              filecolor=blue, urlcolor=blue}
 \fi
+
 
 % ==============================================================================
 %  7. METADADOS DO PDF (Arquivo > Propriedades no leitor de PDF)

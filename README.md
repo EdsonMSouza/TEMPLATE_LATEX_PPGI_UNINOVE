@@ -4,7 +4,7 @@
 
 *Template* LaTeX para projetos de pesquisa, exames de qualificação, dissertações e teses do PPGI (Programa de Pós-Graduação em Informática e Gestão do Conhecimento) da Universidade Nove de Julho (Uninove).
 
-O modelo deriva do *template* do IME-USP desenvolvido pelo Prof. Dr. Jesús P. Mena-Chalco ([2015](http://latex-exemplo.blogspot.com.br/2015/11/modelo-latex-para-dissertacoes-e-teses.html)), adaptado ao PPGI pelo Dr. Charles Gobber ([2018](https://github.com/gobber/uninove-ppgi-latex)). Desde 2026, a manutenção é do Prof. Dr. Edson Melo de Souza (PPGI-Uninove).
+O modelo deriva do *template* do IME-USP desenvolvido pelo Prof. Dr. Jesús P. Mena-Chalco ([2015](http://latex-exemplo.blogspot.com.br/2015/11/modelo-latex-para-dissertacoes-e-teses.html)), adaptado ao PPGI pelo Dr. Charles Gobber ([2018](https://github.com/gobber/uninove-ppgi-latex)). Desde 2025, a manutenção passou a ser realizada pelo Prof. Dr. Edson Melo de Souza (PPGI-Uninove).
 
 > As instruções de uso (edição dos arquivos, compilação, comandos de revisão e exemplos) estão no arquivo **LEIA-ME.md**. Este README apenas descreve o que o *template* oferece e como ele evoluiu.
 

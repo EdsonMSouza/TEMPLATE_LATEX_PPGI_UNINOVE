@@ -633,8 +633,15 @@
 }
 
 % Fonte de ilustrações e tabelas: tamanho 10, espaço simples (manual, itens 4 e 5)
+% Em tabelas (ambiente table), a fonte fica alinhada à esquerda, na primeira
+% linha do rodapé, como determina o IBGE (Normas de apresentação tabular,
+% 4.10). Em figuras e quadros, permanece centralizada.
+\def\fonte@tabela{table}
 \newcommand{\fonte}[1]{%
-	\par\vspace{2pt}{\centering\footnotesize\singlespacing Fonte: #1\par}}
+	\par\vspace{2pt}%
+	{\footnotesize\singlespacing
+	 \ifx\@captype\fonte@tabela\raggedright\else\centering\fi
+	 Fonte: #1\par}}
 
 \newcommand{\fontetabela}[1]{%
 	{\footnotesize\singlespacing Fonte: #1}}
@@ -646,7 +653,7 @@
 	{\textit{\textcolor{Blue}{#1}}\xspace}}
 
 % Comandos antigos de marcação: mantidos por compatibilidade.
-% Para novas revisões, usar \inserir, \remover e \notaEMS (revisao.sty).
+% Para novas revisões, usar \inserir, \remover e \notaORIENTADOR (revisao.sty).
 \newcommand{\correcao}[1]{\textcolor{red}{\{#1\}}\xspace}
 \newcommand{\tachado}[1]{{\textcolor{red}{\sout{#1}}\xspace}}
 
